@@ -419,7 +419,17 @@ function setupConn(c) {
 function initPeer(hostId, connectTo) {
   try {
     var id = hostId || Math.random().toString(36).slice(2, 10);
-    peer = new Peer(id, { debug: 0 });
+    // Explicit config so PeerJS works on both localhost AND Vercel HTTPS
+    peer = new Peer(id, {
+      debug: 0,
+      config: {
+        iceServers: [
+          { urls: 'stun:stun.l.google.com:19302' },
+          { urls: 'stun:stun1.l.google.com:19302' },
+          { urls: 'stun:stun2.l.google.com:19302' }
+        ]
+      }
+    });
 
     peer.on('open', function(myId) {
       console.log('[CC] peer open:', myId);
