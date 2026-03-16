@@ -333,6 +333,26 @@ textarea{resize:none;min-height:72px}
 /* ── ANIMATIONS ─────────────────────────────────────── */
 @keyframes fall{0%{top:-10%;opacity:1;transform:rotate(0deg)}100%{top:110%;opacity:0;transform:rotate(720deg)}}
 </style>
+<script>
+// Peer stub — guarantees game.js always loads even if CDN fails.
+// Real Peer class will overwrite this when CDN loads successfully.
+window.Peer = window.Peer || function(id, opts) {
+  console.warn('[CC] PeerJS not loaded yet — stub used');
+  var self = this;
+  self._handlers = {};
+  self.on = function(ev, fn) { self._handlers[ev] = fn; return self; };
+  self.connect = function() { return { on:function(){ return this; }, send:function(){} }; };
+  self.destroy = function() {};
+  self.reconnect = function() {};
+  // Trigger error so the UI shows a helpful message
+  setTimeout(function() {
+    var h = self._handlers['error'];
+    if (h) h({ type: 'network' });
+  }, 100);
+};
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script defer src="game.js?v=5"></script>
 </head>
 <body>
 
@@ -653,26 +673,6 @@ textarea{resize:none;min-height:72px}
 </div>
 </div>
 
-<script>
-// Peer stub — guarantees game.js always loads even if CDN fails.
-// Real Peer class will overwrite this when CDN loads successfully.
-window.Peer = window.Peer || function(id, opts) {
-  console.warn('[CC] PeerJS not loaded yet — stub used');
-  var self = this;
-  self._handlers = {};
-  self.on = function(ev, fn) { self._handlers[ev] = fn; return self; };
-  self.connect = function() { return { on:function(){ return this; }, send:function(){} }; };
-  self.destroy = function() {};
-  self.reconnect = function() {};
-  // Trigger error so the UI shows a helpful message
-  setTimeout(function() {
-    var h = self._handlers['error'];
-    if (h) h({ type: 'network' });
-  }, 100);
-};
-</script>
-<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
-<!-- Cache bust: update ?v=X when deploying -->
-<script src="game.js?v=5"></script>
+
 </body>
 </html>
