@@ -1210,28 +1210,47 @@ window.addEventListener('beforeunload', function () {
 });
 
 // ─────────────────────────────────────────────────────
-// § EXPORTS — at bottom so all functions are defined first
+// § EVENT LISTENERS — wired here, zero onclick= in HTML
 // ─────────────────────────────────────────────────────
-window.goAvatar         = goAvatar;
-window.goSetup          = goSetup;
-window.hostGame         = hostGame;
-window.joinGame         = joinGame;
-window.copyCode         = copyCode;
-window.goVote           = goVote;
-window.castVote         = castVote;
-window.submitAnswer     = submitAnswer;
-window.usePowerup       = usePowerup;
-window.switchTab        = switchTab;
-window.rematch          = rematch;
-window.goChat           = goChat;
-window.quickEmoji       = quickEmoji;
-window.sendChat         = sendChat;
-window.askQuit          = askQuit;
-window.cancelQuit       = cancelQuit;
-window.confirmQuit      = confirmQuit;
-window.toggleGifPanel   = toggleGifPanel;
-window.searchGifs       = searchGifs;
-window.triggerImagePick = triggerImagePick;
-window.sendImage        = sendImage;
-window.sendLocation     = sendLocation;
-window.closeLightbox    = closeLightbox;
+document.addEventListener('DOMContentLoaded', function () {
+  function on(id, fn) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('click', fn);
+  }
+
+  on('btn-start-game',    goAvatar);
+  on('btn-confirm-avatar',goSetup);
+  on('btn-host-game',     hostGame);
+  on('btn-join-game',     joinGame);
+  on('btn-copy-code',     copyCode);
+  on('btn-go-vote',       goVote);
+  on('cat-food',          function(){ castVote('food'); });
+  on('cat-culture',       function(){ castVote('culture'); });
+  on('cat-sports',        function(){ castVote('sports'); });
+  on('cat-mixed',         function(){ castVote('mixed'); });
+  on('btn-submit-ans',    submitAnswer);
+  on('pu-skip',           function(){ usePowerup('skip'); });
+  on('pu-freeze',         function(){ usePowerup('freeze'); });
+  on('pu-bonus',          function(){ usePowerup('bonus'); });
+  on('btn-go-chat',       goChat);
+  on('btn-rematch',       rematch);
+  on('btn-cancel-quit',   cancelQuit);
+  on('btn-confirm-quit',  confirmQuit);
+  on('btn-ask-quit',      askQuit);
+  on('lightbox',          closeLightbox);
+  on('btn-gif',           toggleGifPanel);
+  on('btn-send-image',    triggerImagePick);
+  on('btn-send-location', sendLocation);
+  on('btn-search-gifs',   searchGifs);
+  on('btn-send-chat',     sendChat);
+
+  // Answer tabs
+  on('tab-btn-me',   function(){ switchTab('me',   this); });
+  on('tab-btn-them', function(){ switchTab('them',  this); });
+
+  // Emoji buttons
+  var emojis = ['🙏','🔥','🎮','🇮🇳','😄','🏏','🍛','🪔'];
+  emojis.forEach(function(emoji, i) {
+    on('emo-' + i, function(){ quickEmoji(emoji); });
+  });
+});
