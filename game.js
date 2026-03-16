@@ -249,7 +249,10 @@ function buildAvatarUI() {
       // IIFE to capture av by value, not by reference
       (function(avatar, el) {
         el.onclick = function() {
-          document.querySelectorAll('.avatar-opt').forEach(function(x){ x.classList.remove('sel'); });
+          var avs = document.querySelectorAll('.avatar-opt');
+for (var i = 0; i < avs.length; i++) {
+  avs[i].classList.remove('sel');
+}
           el.classList.add('sel');
           selectedAvatar = avatar;
           refreshAvatarPreview();
@@ -271,9 +274,11 @@ function buildAvatarUI() {
       s.style.outline = i === 0 ? '2px solid #fff' : '2px solid transparent';
       (function(color, el) {
         el.onclick = function() {
-          document.querySelectorAll('.color-swatch').forEach(function(x){
-            x.classList.remove('sel'); x.style.outline = '2px solid transparent';
-          });
+          var swatches = document.querySelectorAll('.color-swatch');
+for (var i = 0; i < swatches.length; i++) {
+  swatches[i].classList.remove('sel');
+  swatches[i].style.outline = '2px solid transparent';
+}
           el.classList.add('sel'); el.style.outline = '2px solid #fff';
           selectedColor = color;
           sfx('click');
@@ -322,7 +327,7 @@ function goSetup() {
 
 function hostGame() {
   // Guard: if PeerJS CDN failed to load, show a clear error
-  if (typeof Peer === 'undefined') {
+  if (!window.Peer) {
     toast('PEERJS NOT LOADED — CHECK YOUR CONNECTION');
     return;
   }
@@ -339,7 +344,7 @@ function hostGame() {
 }
 
 function joinGame() {
-  if (typeof Peer === 'undefined') {
+  if (!window.Peer) {
     toast('PEERJS NOT LOADED — CHECK YOUR CONNECTION');
     return;
   }
@@ -366,9 +371,10 @@ function copyCode() {
 
 function goVote() {
   myVote = null; theirVote = null;
-  document.querySelectorAll('.cat-card').forEach(function(c){
-    c.classList.remove('voted','opponent-voted','both-voted');
-  });
+  var cards = document.querySelectorAll('.cat-card');
+for (var i = 0; i < cards.length; i++) {
+  cards[i].classList.remove('voted','opponent-voted','both-voted');
+}
   var vs = g('vote-status');
   if (vs) vs.innerHTML = 'WAITING FOR VOTES<span class="dots"><span>.</span><span>.</span><span>.</span></span>';
   show('s-vote');
@@ -891,7 +897,10 @@ function showResult() {
 
 function switchTab(which, el) {
   try {
-    document.querySelectorAll('.ans-tab').forEach(function(t){ t.classList.remove('active'); });
+    var tabs = document.querySelectorAll('.ans-tab');
+for (var i = 0; i < tabs.length; i++) {
+  tabs[i].classList.remove('active');
+}
     el.classList.add('active');
     var tm = g('tab-me'), tt = g('tab-them');
     if (tm) tm.style.display = which === 'me'   ? 'block' : 'none';
