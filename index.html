@@ -374,7 +374,7 @@ textarea{resize:none;min-height:72px}
         <input type="text" id="inp-city" placeholder="CITY" maxlength="16">
       </div>
     </div>
-    <button class="btn btn-primary" onclick="goAvatar()">START GAME <span class="blink">▶</span></button>
+    <button class="btn btn-primary" id="btn-start-game">START GAME <span class="blink">▶</span></button>
   </div>
   <p style="font-family:var(--font);font-size:.45rem;color:var(--muted);margin-top:1rem">© 2025 CROSSCONNECT · INSERT COIN TO BEGIN</p>
 </div>
@@ -394,7 +394,7 @@ textarea{resize:none;min-height:72px}
       <div style="font-size:3rem" id="avatar-preview">🧑</div>
       <div style="font-family:var(--font);font-size:.6rem;color:var(--gold);margin-top:4px" id="avatar-name-preview">—</div>
     </div>
-    <button class="btn btn-primary" onclick="goSetup()">CONFIRM AVATAR ✓</button>
+    <button class="btn btn-primary" id="btn-confirm-avatar">CONFIRM AVATAR ✓</button>
   </div>
 </div>
 </div>
@@ -409,13 +409,13 @@ textarea{resize:none;min-height:72px}
   </div>
   <div class="pbox pbox-orange">
     <p style="font-family:var(--font);font-size:.55rem;color:var(--muted);margin-bottom:.75rem">CREATE ROOM &amp; SHARE CODE</p>
-    <button class="btn btn-primary" onclick="hostGame()">► CREATE ROOM</button>
+    <button class="btn btn-primary" id="btn-host-game">► CREATE ROOM</button>
   </div>
   <div class="pbox">
     <span class="label">Join With Code</span>
     <input type="text" id="inp-join-code" placeholder="ENTER CODE" maxlength="6"
            style="text-transform:uppercase;letter-spacing:.2em;font-family:var(--font);font-size:.9rem">
-    <button class="btn btn-green" onclick="joinGame()">JOIN ROOM ►</button>
+    <button class="btn btn-green" id="btn-join-game">JOIN ROOM ►</button>
   </div>
 </div>
 </div>
@@ -426,7 +426,7 @@ textarea{resize:none;min-height:72px}
   <h2 id="wait-title">WAITING<span class="dots"><span>.</span><span>.</span><span>.</span></span></h2>
   <p class="sub">Share this code with your opponent</p>
   <div class="room-code" id="room-code-display">------</div>
-  <button class="btn btn-sm btn-gold" onclick="copyCode()" style="margin:0 auto">📋 COPY CODE</button>
+  <button class="btn btn-sm btn-gold" id="btn-copy-code" style="margin:0 auto">📋 COPY CODE</button>
   <div class="pbox" style="margin-top:1rem;text-align:left">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
       <span class="status-led wait" id="conn-led"></span>
@@ -439,7 +439,7 @@ textarea{resize:none;min-height:72px}
       <div style="font-size:.85rem;color:var(--muted)"><span id="peer-state-display">—</span></div>
     </div>
   </div>
-  <button class="btn btn-primary" id="btn-go-vote" style="display:none" onclick="goVote()">VOTE CATEGORY ▶</button>
+  <button class="btn btn-primary" id="btn-go-vote" style="display:none">VOTE CATEGORY ▶</button>
 </div>
 </div>
 
@@ -449,22 +449,22 @@ textarea{resize:none;min-height:72px}
   <h2>PICK A CATEGORY</h2>
   <p class="sub">Both players vote — host wins ties</p>
   <div class="cat-grid">
-    <div class="cat-card" id="cat-food"    onclick="castVote('food')">
+    <div class="cat-card" id="cat-food">
       <span class="cat-icon">🍛</span>
       <div class="cat-title">FOOD</div>
       <div class="cat-desc">Regional dishes</div>
     </div>
-    <div class="cat-card" id="cat-culture" onclick="castVote('culture')">
+    <div class="cat-card" id="cat-culture">
       <span class="cat-icon">🎭</span>
       <div class="cat-title">CULTURE</div>
       <div class="cat-desc">Festivals &amp; art</div>
     </div>
-    <div class="cat-card" id="cat-sports"  onclick="castVote('sports')">
+    <div class="cat-card" id="cat-sports">
       <span class="cat-icon">🏏</span>
       <div class="cat-title">SPORTS</div>
       <div class="cat-desc">Cricket &amp; more</div>
     </div>
-    <div class="cat-card" id="cat-mixed"   onclick="castVote('mixed')">
+    <div class="cat-card" id="cat-mixed">
       <span class="cat-icon">🌈</span>
       <div class="cat-title">MIXED</div>
       <div class="cat-desc">Surprise round</div>
@@ -509,16 +509,16 @@ textarea{resize:none;min-height:72px}
     <div id="q-cat-badge" style="margin-bottom:.5rem"></div>
     <div id="q-text" style="font-family:var(--font);font-size:.6rem;color:var(--white);line-height:1.8;margin-bottom:.8rem">LOADING...</div>
     <textarea id="q-answer" class="q-input" placeholder="TYPE YOUR ANSWER..." rows="3"></textarea>
-    <button class="btn btn-primary" id="btn-submit-ans" onclick="submitAnswer()">SUBMIT ⚡</button>
+    <button class="btn btn-primary" id="btn-submit-ans">SUBMIT ⚡</button>
   </div>
   <div class="powerup-bar">
-    <button class="pu-btn" id="pu-skip"   onclick="usePowerup('skip')"   title="Skip question">
+    <button class="pu-btn" id="pu-skip"   title="Skip question">
       ⏭️<span class="pu-label">SKIP</span><span class="pu-count" id="pu-skip-count">1</span>
     </button>
-    <button class="pu-btn" id="pu-freeze" onclick="usePowerup('freeze')" title="Freeze opponent 5s">
+    <button class="pu-btn" id="pu-freeze" title="Freeze opponent 5s">
       ❄️<span class="pu-label">FREEZE</span><span class="pu-count" id="pu-freeze-count">1</span>
     </button>
-    <button class="pu-btn" id="pu-bonus"  onclick="usePowerup('bonus')"  title="2x points next answer">
+    <button class="pu-btn" id="pu-bonus"  title="2x points next answer">
       ⭐<span class="pu-label">2X</span><span class="pu-count" id="pu-bonus-count">1</span>
     </button>
   </div>
@@ -558,14 +558,14 @@ textarea{resize:none;min-height:72px}
   </div>
   <div class="pbox" style="margin-top:.75rem;text-align:left">
     <div class="ans-tabs">
-      <div class="ans-tab active" onclick="switchTab('me',this)">MY ANSWERS</div>
-      <div class="ans-tab"        onclick="switchTab('them',this)">THEIR ANSWERS</div>
+      <div class="ans-tab active" id="tab-btn-me">MY ANSWERS</div>
+      <div class="ans-tab" id="tab-btn-them">THEIR ANSWERS</div>
     </div>
     <div id="tab-me"   style="max-height:200px;overflow-y:auto"></div>
     <div id="tab-them" style="display:none;max-height:200px;overflow-y:auto"></div>
   </div>
-  <button class="btn btn-primary" onclick="goChat()"  style="margin-top:.75rem">OPEN CHAT 💬</button>
-  <button class="btn btn-green"   onclick="rematch()" style="margin-top:.5rem">REMATCH 🔄</button>
+  <button class="btn btn-primary" id="btn-go-chat" style="margin-top:.75rem">OPEN CHAT 💬</button>
+  <button class="btn btn-green"   id="btn-rematch" style="margin-top:.5rem">REMATCH 🔄</button>
 </div>
 </div>
 
@@ -576,14 +576,14 @@ textarea{resize:none;min-height:72px}
     <h2>QUIT CHAT?</h2>
     <p>Are you sure you want to leave this conversation?</p>
     <div class="quit-btns">
-      <button class="btn btn-green" onclick="cancelQuit()">STAY</button>
-      <button class="btn btn-pink"  onclick="confirmQuit()">QUIT</button>
+      <button class="btn btn-green" id="btn-cancel-quit">STAY</button>
+      <button class="btn btn-pink"  id="btn-confirm-quit">QUIT</button>
     </div>
   </div>
 </div>
 
 <!-- IMAGE LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+<div class="lightbox" id="lightbox">
   <img id="lightbox-img" src="" alt="full size">
 </div>
 
@@ -599,7 +599,7 @@ textarea{resize:none;min-height:72px}
       <div style="font-family:var(--font);font-size:.45rem;color:var(--green)">
         <span class="status-led on"></span>LIVE
       </div>
-      <button class="tool-btn" onclick="askQuit()"
+      <button class="tool-btn" id="btn-ask-quit"
               style="border-color:var(--red);color:var(--red);font-size:.75rem;padding:3px 8px"
               title="Leave chat">✕ QUIT</button>
     </div>
@@ -609,21 +609,21 @@ textarea{resize:none;min-height:72px}
 
   <!-- EMOJI BAR -->
   <div class="emoji-bar">
-    <button class="emo-btn" onclick="quickEmoji('🙏')">🙏</button>
-    <button class="emo-btn" onclick="quickEmoji('🔥')">🔥</button>
-    <button class="emo-btn" onclick="quickEmoji('🎮')">🎮</button>
-    <button class="emo-btn" onclick="quickEmoji('🇮🇳')">🇮🇳</button>
-    <button class="emo-btn" onclick="quickEmoji('😄')">😄</button>
-    <button class="emo-btn" onclick="quickEmoji('🏏')">🏏</button>
-    <button class="emo-btn" onclick="quickEmoji('🍛')">🍛</button>
-    <button class="emo-btn" onclick="quickEmoji('🪔')">🪔</button>
+    <button class="emo-btn" id="emo-0">🙏</button>
+    <button class="emo-btn" id="emo-1">🔥</button>
+    <button class="emo-btn" id="emo-2">🎮</button>
+    <button class="emo-btn" id="emo-3">🇮🇳</button>
+    <button class="emo-btn" id="emo-4">😄</button>
+    <button class="emo-btn" id="emo-5">🏏</button>
+    <button class="emo-btn" id="emo-6">🍛</button>
+    <button class="emo-btn" id="emo-7">🪔</button>
   </div>
 
   <!-- TOOLBAR: GIF | IMAGE | LOCATION -->
   <div class="chat-toolbar">
-    <button class="tool-btn" id="btn-gif"  onclick="toggleGifPanel()" title="Search GIFs">🎞 GIF</button>
-    <button class="tool-btn" onclick="triggerImagePick()"             title="Send photo">🖼 IMAGE</button>
-    <button class="tool-btn" onclick="sendLocation()"                 title="Share location">📍 LOCATION</button>
+    <button class="tool-btn" id="btn-gif" title="Search GIFs">🎞 GIF</button>
+    <button class="tool-btn" id="btn-send-image" title="Send photo">🖼 IMAGE</button>
+    <button class="tool-btn" id="btn-send-location" title="Share location">📍 LOCATION</button>
     <input type="file" id="img-file-inp" accept="image/*" style="display:none" onchange="sendImage(event)">
   </div>
 
@@ -632,7 +632,7 @@ textarea{resize:none;min-height:72px}
     <div class="gif-search-row">
       <input type="text" id="gif-search-inp" placeholder="SEARCH GIFS..."
              onkeydown="if(event.key==='Enter')searchGifs()">
-      <button onclick="searchGifs()">GO</button>
+      <button id="btn-search-gifs">GO</button>
     </div>
     <div class="gif-grid" id="gif-grid">
       <p style="font-size:.85rem;color:var(--muted);grid-column:1/-1;text-align:center;padding:.5rem">
@@ -645,7 +645,7 @@ textarea{resize:none;min-height:72px}
   <div class="chat-input-row">
     <input type="text" id="chat-inp" placeholder="SEND MESSAGE..." maxlength="300"
            onkeydown="if(event.key==='Enter')sendChat()">
-    <button class="chat-send" onclick="sendChat()">SEND</button>
+    <button class="chat-send" id="btn-send-chat">SEND</button>
   </div>
   <p style="font-family:var(--font);font-size:.4rem;color:var(--muted);text-align:center;margin-top:.6rem">
     NO VULGARITY · INDIA LOVES YOU 🪔
