@@ -3,30 +3,7 @@
 // § EXPORTS — placed at TOP so onclick= works even if a later
 //   runtime error occurs. Function declarations are hoisted.
 // ═══════════════════════════════════════════════════════════════
-window.goAvatar       = goAvatar;
-window.goSetup        = goSetup;
-window.hostGame       = hostGame;
-window.joinGame       = joinGame;
-window.copyCode       = copyCode;
-window.goVote         = goVote;
-window.castVote       = castVote;
-window.submitAnswer   = submitAnswer;
-window.usePowerup     = usePowerup;
-window.switchTab      = switchTab;
-window.rematch        = rematch;
-window.goChat         = goChat;
-window.quickEmoji     = quickEmoji;
-window.sendChat       = sendChat;
-// Chat extras
-window.askQuit        = askQuit;
-window.cancelQuit     = cancelQuit;
-window.confirmQuit    = confirmQuit;
-window.toggleGifPanel = toggleGifPanel;
-window.searchGifs     = searchGifs;
-window.triggerImagePick = triggerImagePick;
-window.sendImage      = sendImage;
-window.sendLocation   = sendLocation;
-window.closeLightbox  = closeLightbox;
+// window exports are at the BOTTOM of this file, after all functions are defined.
 
 // ─────────────────────────────────────────────────────
 // § DATA
@@ -1228,8 +1205,33 @@ function closeLightbox() {
 }
 
 // § EXPORTS moved to top of file — see line 1
-window.addEventListener("beforeunload", function () {
-  try {
-    if (peer) peer.destroy();
-  } catch(e){}
+window.addEventListener('beforeunload', function () {
+  try { if (peer) peer.destroy(); } catch(e){}
 });
+
+// ─────────────────────────────────────────────────────
+// § EXPORTS — at bottom so all functions are defined first
+// ─────────────────────────────────────────────────────
+window.goAvatar         = goAvatar;
+window.goSetup          = goSetup;
+window.hostGame         = hostGame;
+window.joinGame         = joinGame;
+window.copyCode         = copyCode;
+window.goVote           = goVote;
+window.castVote         = castVote;
+window.submitAnswer     = submitAnswer;
+window.usePowerup       = usePowerup;
+window.switchTab        = switchTab;
+window.rematch          = rematch;
+window.goChat           = goChat;
+window.quickEmoji       = quickEmoji;
+window.sendChat         = sendChat;
+window.askQuit          = askQuit;
+window.cancelQuit       = cancelQuit;
+window.confirmQuit      = confirmQuit;
+window.toggleGifPanel   = toggleGifPanel;
+window.searchGifs       = searchGifs;
+window.triggerImagePick = triggerImagePick;
+window.sendImage        = sendImage;
+window.sendLocation     = sendLocation;
+window.closeLightbox    = closeLightbox;
