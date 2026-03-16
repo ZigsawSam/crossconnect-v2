@@ -900,19 +900,43 @@ function switchTab(which, el) {
 }
 
 function rematch() {
-  // Full state reset before next round
-  myScore = 0; theirScore = 0;
-  myCount = 0; theirCount = 0;
-  myAnswers = []; theirAnswers = [];
-  myVote = null; theirVote = null;
-  isBonusActive = false; isFrozen = false;
+  // Destroy existing peer session to prevent old matchmaking
+  if (peer) {
+    try { peer.destroy(); } catch(e) {}
+    peer = null;
+  }
+
+  conn = null;
+  roomCode = '';
+
+  // Reset game state
+  myScore = 0;
+  theirScore = 0;
+  myCount = 0;
+  theirCount = 0;
+  myAnswers = [];
+  theirAnswers = [];
+  myVote = null;
+  theirVote = null;
+
+  isBonusActive = false;
+  isFrozen = false;
+
   powerups = { skip:1, freeze:1, bonus:1 };
+
   clearInterval(timerInterval);
-  var hms = g('hud-my-score'), hts = g('hud-their-score');
+
+  // Reset HUD
+  var hms = g('hud-my-score');
+  var hts = g('hud-their-score');
+
   if (hms) hms.textContent = '0';
   if (hts) hts.textContent = '0';
+
   sfx('click');
-  goVote();
+
+  // Return to setup screen so players create a fresh room
+  show('s-setup');
 }
 
 // ─────────────────────────────────────────────────────
@@ -967,15 +991,31 @@ function cancelQuit() {
 }
 
 function confirmQuit() {
-  // Notify opponent then go back to result screen
+
+  // Notify opponent that chat/game session is ending
   try {
     if (conn) conn.send({ type:'chat-quit' });
   } catch(e) {}
+
+  // Destroy peer connection to avoid future matchmaking bugs
+  if (peer) {
+    try { peer.destroy(); } catch(e) {}
+    peer = null;
+  }
+
+  conn = null;
+  roomCode = '';
+
   var o = g('quit-overlay');
   if (o) o.classList.remove('open');
+
   addSystemMsg('YOU LEFT THE CHAT');
-  // Go back to result screen after short delay
-  setTimeout(function(){ show('s-result'); }, 800);
+
+  // Return to result screen
+  setTimeout(function(){
+    show('s-result');
+  }, 800);
+
   sfx('click');
 }
 
@@ -1168,3 +1208,8 @@ function closeLightbox() {
 }
 
 // § EXPORTS moved to top of file — see line 1
+window.addEventListener("beforeunload", function () {
+  try {
+    if (peer) peer.destroy();
+  } catch(e){}
+});
