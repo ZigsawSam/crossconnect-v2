@@ -95,6 +95,15 @@ textarea{resize:none;min-height:72px}
 .btn-green  {border-color:var(--green);  color:var(--green);  box-shadow:3px 3px 0 var(--green)}
 .btn-green:hover{box-shadow:5px 5px 0 var(--green);background:#0a2018}
 .btn-gold   {border-color:var(--gold);   color:var(--gold);   box-shadow:3px 3px 0 rgba(255,215,0,.5)}
+.btn-pink{
+  border-color:var(--pink);
+  color:var(--pink);
+  box-shadow:3px 3px 0 var(--pink);
+}
+.btn-pink:hover{
+  box-shadow:5px 5px 0 var(--pink);
+  background:#2a0815;
+}
 .btn-sm{font-size:.5rem;padding:.5rem .8rem;width:auto;display:inline-block;margin-top:.5rem}
 
 /* ── BLINK ──────────────────────────────────────────── */
@@ -662,10 +671,8 @@ window.Peer = window.Peer || function(id, opts) {
   }, 100);
 };
 </script>
-<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"
-        crossorigin="anonymous"
-        onerror="console.warn('[CC] PeerJS CDN failed — running in stub mode')"></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <!-- Cache bust: update ?v=X when deploying -->
-<script src="game.js?v=4"></script>
+<script src="game.js?v=5"></script>
 </body>
 </html>
