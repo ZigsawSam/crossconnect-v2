@@ -295,16 +295,18 @@ function refreshAvatarPreview() {
 // § NAV
 // ─────────────────────────────────────────────────────
 function goAvatar() {
-  var name  = g('inp-name')  ? g('inp-name').value.trim().toUpperCase()  : '';
-  var state = g('inp-state') ? g('inp-state').value                       : '';
-  var city  = g('inp-city')  ? g('inp-city').value.trim().toUpperCase()  : '';
-  if (!name)  { toast('ENTER YOUR NAME!');  return; }
-  if (!state) { toast('PICK YOUR STATE!');  return; }
-  if (!city)  { toast('ENTER YOUR CITY!');  return; }
-  me = { name: name, state: state, city: city };
+  var name  = g('inp-name').value.trim().toUpperCase();
+  var state = g('inp-state').value;
+  var city  = g('inp-city').value.trim().toUpperCase();
+
+  if (!name || !state || !city) {
+    toast('ENTER NAME, STATE AND CITY');
+    return;
+  }
+
+  me = { name, state, city };
   buildAvatarUI();
   show('s-avatar');
-  sfx('click');
 }
 
 function goSetup() {
